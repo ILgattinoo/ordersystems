@@ -1,0 +1,49 @@
+plugins {
+	id 'org.springframework.boot' version '2.1.5.BUILD-SNAPSHOT'
+	id 'java'
+	id 'war'
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.alyssa'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+	mavenCentral()
+	maven { url 'https://repo.spring.io/snapshot' }
+	maven { url 'https://repo.spring.io/milestone' }
+}
+
+// 依赖的jar包
+dependencies {
+	// 在gradle3.0中，compile依赖关系已被弃用，被implementation和api替代，
+	// compile: 使用该方式依赖的库将会参与编译和打包。
+	// api: 跟2.x版本的 compile完全相同, 该依赖方式会传递所依赖的库，当其他module依赖了该module时，可以使用该module下使用api依赖的库。
+	// implementation: 该依赖方式所依赖的库不会传递，只会在当前module中生效。
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	// 相比api减少依赖传递性,避免跨依赖调用
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-freemarker'
+
+	// 只编译依赖(在编译时所需的依赖关系，但在运行时不需要)
+	compileOnly 'org.projectlombok:lombok'
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// 工具集合相关类
+	implementation 'com.google.guava:guava:26.0-jre'
+	implementation 'com.alibaba:fastjson:1.2.41'
+	implementation 'org.apache.commons:commons-lang3:3.5'
+	// 编译时注解 编译期间根据注解自动生成代码
+	implementation 'org.projectlombok:lombok'
+	//swagger
+	implementation 'io.springfox:springfox-swagger2:2.9.2'
+	implementation 'io.springfox:springfox-swagger-ui:2.9.2'
+
+	// 数据库
+	implementation 'com.h2database:h2:1.4.198'
+	implementation 'mysql:mysql-connector-java'
+}
