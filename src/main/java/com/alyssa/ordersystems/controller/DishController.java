@@ -14,7 +14,7 @@ import static com.alyssa.ordersystems.constant.Const.StatusField.RESULT;
 
 @RestController
 @RequestMapping("/dish")
-public class DishConcroller {
+public class DishController {
 
     @Autowired
     private DishService service;
