@@ -51,7 +51,6 @@ public class OrderController {
 
     @PostMapping(value = "/getByOrderId")
     public Map<String, Object> getByOrderId(@RequestParam(value = "orderId") long orderId) {
-
         Map<String, Object> model = Maps.newHashMap();
         model.put("order", service.getByOrderId(orderId));
         return model;

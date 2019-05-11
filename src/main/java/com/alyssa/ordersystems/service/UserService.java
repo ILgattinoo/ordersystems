@@ -5,6 +5,7 @@ import com.alyssa.ordersystems.dao.data.UserData;
 import com.alyssa.ordersystems.dao.manager.UserManager;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -76,5 +77,19 @@ public class UserService {
     public List<UserData> listAll(int pageNumber, int pageSize) {
         return manager.findAll(PageRequest.of(pageNumber - 1, pageSize)).getContent();
     }
+    public String login(String accountId,String token) {
+        UserData userData;
+        if (manager.getByAccountId(accountId).isPresent()) {
+            userData = manager.getByAccountId(accountId).get();
+            if (userData.getToken().equals(token)){
+                return userData.getUserType().toString();
+            }else {
+                return "ERROR";
+            }
 
+        }else{
+            return "NULL";
+        }
+
+    }
 }

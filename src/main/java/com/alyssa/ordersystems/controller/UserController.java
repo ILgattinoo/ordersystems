@@ -3,10 +3,7 @@ package com.alyssa.ordersystems.controller;
 import com.alyssa.ordersystems.service.UserService;
 import com.google.common.collect.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -53,11 +50,12 @@ public class UserController {
         return model;
     }
 
-    @PostMapping(value = "/getByAccountId")
-    public Map<String, Object> getByAccountId(@RequestParam(value = "accountId") String accountId) {
+    @RequestMapping(value = "/getByAccountId",method = RequestMethod.GET)
+    public Map<String, Object> getByAccountId(
+            @RequestParam(value = "accountId") String accountId) {
 
         Map<String, Object> model = Maps.newHashMap();
-        model.put("user", service.getByAccountId(accountId));
+        model.put("userinfo", service.getByAccountId(accountId));
         return model;
     }
 
@@ -67,7 +65,13 @@ public class UserController {
             @RequestParam(value = "pageSize", required = false, defaultValue = "50") int pageSize) {
 
         Map<String, Object> model = Maps.newHashMap();
-        model.put("dataList", service.listAll(pageNumber, pageSize));
+        model.put("userList", service.listAll(pageNumber, pageSize));
         return model;
+    }
+    @RequestMapping(value = "/login",method = RequestMethod.GET)
+    public String login(
+            @RequestParam(value = "accountId") String accountId,
+            @RequestParam(value = "password" ) String password) {
+        return service.login(accountId,password);
     }
 }
