@@ -43,7 +43,7 @@ public class DataType {
                 }
             }
             if (type == ADMINISTRATOR) {
-                type = CUSTOMER;
+                type = ADMINISTRATOR;
             }
             return Optional.ofNullable(type);
         }
@@ -56,7 +56,11 @@ public class DataType {
 
         COLDDISH(2),
 
-        DRINK(3),;
+        DRINK(3),
+
+        SOUP(4),
+
+        MEAL(5),;
         public final int code;
 
         public static Optional<DishType> getType(int code) {

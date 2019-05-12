@@ -22,7 +22,7 @@ public class OrderData extends BaseData{
 
     private int orderAmount;
 
-    private long userId;
+    private String userId;
 
     @Enumerated(value = EnumType.STRING)
     private DataType.OrderType orderType;

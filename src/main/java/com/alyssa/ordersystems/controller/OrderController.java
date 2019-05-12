@@ -4,10 +4,7 @@ package com.alyssa.ordersystems.controller;
 import com.alyssa.ordersystems.service.OrderService;
 import com.google.common.collect.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -19,17 +16,17 @@ public class OrderController {
 
     @Autowired
     private OrderService service;
-    @PostMapping(value = "/add")
+    @RequestMapping(value = "/add",method = RequestMethod.GET)
     public Map<String, Object> addOrder(
             @RequestParam(value = "orderAmount") int orderAmount,
-            @RequestParam(value = "userId")long userId,
+            @RequestParam(value = "userId")String userId,
             @RequestParam(value = "orderType")int orderType){
         Map<String, Object> model = Maps.newHashMap();
         model.put(RESULT, service.addOrder(orderAmount, userId,orderType));
         return model;
     }
 
-    @PostMapping(value = "/delete")
+    @RequestMapping(value = "/delete",method = RequestMethod.GET)
     public Map<String, Object> delete(@RequestParam(value = "id") long id) {
 
         service.deleteOrder(id);
@@ -38,7 +35,7 @@ public class OrderController {
         return model;
     }
 
-    @PostMapping(value = "/update")
+    @RequestMapping(value = "/update",method = RequestMethod.GET)
     public Map<String, Object> update(
             @RequestParam(value = "id") long id,
             @RequestParam(value = "orderAmount", required = false) int orderAmount,
@@ -49,20 +46,20 @@ public class OrderController {
         return model;
     }
 
-    @PostMapping(value = "/getByOrderId")
+    @RequestMapping(value = "/getByOrderId",method = RequestMethod.GET)
     public Map<String, Object> getByOrderId(@RequestParam(value = "orderId") long orderId) {
         Map<String, Object> model = Maps.newHashMap();
         model.put("order", service.getByOrderId(orderId));
         return model;
     }
 
-    @PostMapping(value = "/listAll")
+    @RequestMapping(value = "/listAll",method = RequestMethod.GET)
     public Map<String, Object> listAll(
             @RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
             @RequestParam(value = "pageSize", required = false, defaultValue = "50") int pageSize) {
 
         Map<String, Object> model = Maps.newHashMap();
-        model.put("dataList", service.listAllOrder(pageNumber, pageSize));
+        model.put("orderList", service.listAllOrder(pageNumber, pageSize));
         return model;
     }
 }

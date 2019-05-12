@@ -16,7 +16,7 @@ public class UserController {
     @Autowired
     private UserService service;
 
-    @PostMapping(value = "/registered")
+    @RequestMapping (value = "/registered",method = RequestMethod.GET)
     public Map<String, Object> registered(
             @RequestParam(value = "accountId") String accountId,
             @RequestParam(value = "token") String token,
@@ -26,7 +26,7 @@ public class UserController {
         return model;
     }
 
-    @PostMapping(value = "/unsubscribe")
+    @RequestMapping(value = "/unsubscribe",method = RequestMethod.GET)
     public Map<String, Object> unsubscribe(@RequestParam(value = "id") long id) {
 
         service.unsubscribe(id);
@@ -35,7 +35,7 @@ public class UserController {
         return model;
     }
 
-    @PostMapping(value = "/modify")
+    @RequestMapping(value = "/modify",method = RequestMethod.GET)
     public Map<String, Object> modify(
             @RequestParam(value = "id") long id,
             @RequestParam(value = "password", required = false, defaultValue = "") String password,
@@ -59,7 +59,7 @@ public class UserController {
         return model;
     }
 
-    @PostMapping(value = "/listAll")
+    @RequestMapping(value = "/listAll",method = RequestMethod.GET)
     public Map<String, Object> listAll(
             @RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
             @RequestParam(value = "pageSize", required = false, defaultValue = "50") int pageSize) {

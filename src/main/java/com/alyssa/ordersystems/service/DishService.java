@@ -40,7 +40,7 @@ public class DishService {
     }
 
     @Transactional
-    public DishData updateDish(long id, String dishName, int dishType, int dishPrice ,int dishStock)
+    public boolean updateDish(long id, String dishName,  int dishPrice ,int dishStock)
             throws Exception {
         Optional<DishData> data = manager.findById(id);
         if (!data.isPresent()) {
@@ -50,16 +50,15 @@ public class DishService {
             data.get().setDishName(dishName);
         }
 
-        DataType.DishType.getType(dishType).ifPresent(
-                dishType1-> data.get().setDishType(dishType1));
-
         if (dishPrice >= 0) {
             data.get().setDishPrice(dishPrice);
         }
         if (dishStock >= 0) {
             data.get().setDishStock(dishStock);
         }
-        return manager.save(data.get());
+        manager.save(data.get());
+
+        return true;
     }
 
     public void deleteDish(long id) {

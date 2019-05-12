@@ -4,10 +4,7 @@ import com.alyssa.ordersystems.service.OrderItemService;
 import com.alyssa.ordersystems.service.OrderService;
 import com.google.common.collect.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -19,7 +16,7 @@ public class OrderItemController {
 
     @Autowired
     private OrderItemService service;
-    @PostMapping(value = "/add")
+    @RequestMapping(value = "/add",method = RequestMethod.GET)
     public Map<String, Object> addOrderItem(
             @RequestParam(value = "orderId")  long orderId,
             @RequestParam(value = "dishName")String dishName,
@@ -29,7 +26,7 @@ public class OrderItemController {
         return model;
     }
 
-    @PostMapping(value = "/delete")
+    @RequestMapping(value = "/delete",method = RequestMethod.GET)
     public Map<String, Object> delete(@RequestParam(value = "id") long id) {
 
         service.deleteOrderItem(id);
@@ -49,14 +46,14 @@ public class OrderItemController {
 //        return model;
 //    }
 
-    @PostMapping(value = "/getByOrderId")
+    @RequestMapping(value = "/getByOrderId",method = RequestMethod.GET)
     public Map<String, Object> getByOrderId(@RequestParam(value = "orderId") long orderId) {
         Map<String, Object> model = Maps.newHashMap();
         model.put("OrderItemList", service.getByOrderId(orderId));
         return model;
     }
 
-    @PostMapping(value = "/listAll")
+    @RequestMapping(value = "/listAll",method = RequestMethod.GET)
     public Map<String, Object> listAll(
             @RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
             @RequestParam(value = "pageSize", required = false, defaultValue = "50") int pageSize) {

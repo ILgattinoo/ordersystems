@@ -24,18 +24,20 @@ public class OrderService {
     private OrderManager manager;
 
     @Transactional
-    public boolean addOrder(int orderAmount, long userId,int orderType) {
+    public Long addOrder(int orderAmount, String userId,int orderType) {
 
-        create(orderAmount, userId,DataType.OrderType.getType(orderType).orElse(UNPAID));
-        return true;
+        return create(orderAmount, userId,DataType.OrderType.getType(orderType).orElse(UNPAID));
+
     }
 
-    private void create(int orderAmount, long userId,DataType.OrderType orderType) {
+    private Long create(int orderAmount, String userId,DataType.OrderType orderType) {
+        Long orderId = OrdServiceUtils.generateId();
         manager.save(new OrderData()
-                .setOrderId(OrdServiceUtils.generateId())
+                .setOrderId(orderId)
                 .setOrderAmount(orderAmount)
                 .setUserId(userId)
                 .setOrderType(orderType));
+        return  orderId;
     }
 
     @Transactional
